@@ -6,10 +6,7 @@ import (
 )
 
 func getAllQuestions(w http.ResponseWriter, r *http.Request) {
-	questions := Questions{
-		Question{Text: "Write presentation"},
-		Question{Text: "Host meetup"},
-	}
+	questions := RepoGetAllQuestions()
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
