@@ -17,19 +17,19 @@ var routes = Routes{
 	Route{
 		"Index",
 		"Get",
-		"/",
+		"/api/question",
 		getAllQuestions,
 	},
 	Route{
 		"TodoIndex",
 		"POST",
-		"/question",
+		"/api/question",
 		addQuestion,
 	},
 	Route{
 		"TodoShow",
 		"DELETE",
-		"/question/{questionId}",
+		"/api/question/{questionId}",
 		getAllQuestions,
 	},
 }
