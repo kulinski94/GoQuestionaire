@@ -30,6 +30,6 @@ var routes = Routes{
 		"TodoShow",
 		"DELETE",
 		"/api/question/{questionId}",
-		getAllQuestions,
+		deleteQuestion,
 	},
 }

@@ -11,5 +11,5 @@ CREATE table answers (
     `correct` TINYINT(1) NULL DEFAULT 0,
     `question_id` INT(10) NOT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (question_id) REFERENCES questions(id)
+    FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
 );

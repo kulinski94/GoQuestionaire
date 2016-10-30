@@ -64,6 +64,19 @@ func RepoInsertQuestion(QuestionToAdd Question) sql.Result {
 	return res
 }
 
+func RepoDeleteQuestion(questionID int) sql.Result {
+	db, err := sql.Open("mysql", "go:go@/go_questionaire?charset=utf8")
+	checkErr(err)
+
+	// insert
+	stmt, err := db.Prepare("delete from questions where id=?")
+	checkErr(err)
+
+	res, err := stmt.Exec(questionID)
+	checkErr(err)
+	return res
+}
+
 func checkErr(err error) {
 	if err != nil {
 		panic(err)

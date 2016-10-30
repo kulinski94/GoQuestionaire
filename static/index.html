@@ -1,11 +1,35 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>A static page</title>
-  <link rel="stylesheet" href="/stylesheets/main.css">
-</head>
-<body>
-  <h1>Hello from a static page</h1>
-</body>
-</html>
+<script src="https://unpkg.com/vue@next/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+
+<div id="app" class="col-sm-6 col-sm-offset-3">
+	<h1>Trader Interview Questions</h1>
+	<button class="btn btn-primary" v-on:click="getQuestions">GET Questions</button>
+	<ul>
+		<li v-for="question in questions">
+			{{ question.text }}
+			<ul>
+				<li v-for="answer in question.answers">
+					{{ answer.text }}
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    questions: []
+  },
+  methods: {
+    getQuestions: function () {
+      this.$http.get('api/question').then((response) => {
+        this.questions = JSON.parse(JSON.stringify(response.body));
+      },(response) => {
+
+      });
+    }
+  }
+})
+</script>

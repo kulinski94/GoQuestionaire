@@ -5,6 +5,9 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 func getAllQuestions(w http.ResponseWriter, r *http.Request) {
@@ -39,6 +42,24 @@ func addQuestion(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusCreated)
 	if err := json.NewEncoder(w).Encode(t); err != nil {
+		panic(err)
+	}
+}
+
+func deleteQuestion(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	questionID, er := strconv.Atoi(vars["questionId"])
+
+	if er != nil {
+		panic(er)
+	}
+
+	res := RepoDeleteQuestion(questionID)
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(res); err != nil {
 		panic(err)
 	}
 }
