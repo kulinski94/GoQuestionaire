@@ -1,0 +1,4 @@
+sudo docker run --name=db --net=host -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=go_questionaire -e MYSQL_USER=go -e MYSQL_PASSWORD=go -d mariadb:latest
+
+mysql -h 127.0.0.1 -ugo -pgo go_questionaire < ../sql/create_schema.sql
+mysql -h 127.0.0.1 -ugo -pgo go_questionaire < ../sql/insert_questions_and_answers.sql
