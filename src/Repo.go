@@ -11,10 +11,6 @@ func RepoFindQuestion(id int) Question {
 	return Question{}
 }
 
-func RepoCreateQuestion(t Question) Question {
-	return Question{}
-}
-
 func RepoGetAllQuestions() Questions {
 	db, err := sql.Open("mysql", "go:go@/go_questionaire?charset=utf8")
 	checkErr(err)
@@ -30,7 +26,6 @@ func RepoGetAllQuestions() Questions {
 		err = rows.Scan(&id, &text)
 		checkErr(err)
 		q := Question{Id: id, Text: text, Answers: findAnswersForQuestion(id)}
-
 		questions = append(questions, q)
 	}
 	return questions
@@ -54,6 +49,19 @@ func findAnswersForQuestion(QuestionId int) Answers {
 		answers = append(answers, a)
 	}
 	return answers
+}
+
+func RepoInsertQuestion(QuestionToAdd Question) sql.Result {
+	db, err := sql.Open("mysql", "go:go@/go_questionaire?charset=utf8")
+	checkErr(err)
+
+	// insert
+	stmt, err := db.Prepare("INSERT questions SET text=?")
+	checkErr(err)
+
+	res, err := stmt.Exec(QuestionToAdd.Text)
+	checkErr(err)
+	return res
 }
 
 func checkErr(err error) {

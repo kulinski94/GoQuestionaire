@@ -22,14 +22,14 @@ var routes = Routes{
 	},
 	Route{
 		"TodoIndex",
-		"GET",
-		"/todos",
-		getAllQuestions,
+		"POST",
+		"/question",
+		addQuestion,
 	},
 	Route{
 		"TodoShow",
-		"GET",
-		"/todos/{todoId}",
+		"DELETE",
+		"/question/{questionId}",
 		getAllQuestions,
 	},
 }
