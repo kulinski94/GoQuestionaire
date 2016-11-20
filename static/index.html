@@ -22,23 +22,16 @@
 
 	<!-- main body of our application -->
 	<div class="container" id="app">
-
 		<div class="col-sm-6 col-sm-offset-3">
-			<ul>
-				<li v-for="question in questions">
-					{{ question.text }}
-					<ul>
-						<li v-for="answer in question.answers">
-							{{ answer.text }}
-						</li>
-					</ul>
-				</li>
-			</ul>
+			<div v-for="question in questions">
+				<span> {{question.id}}.{{ question.text }}</span>
+				<div class=class="form-group" v-for="answer in question.answers">
+					<input v-bind:name="question.id" type="radio" v-bind:value="answer.id">
+					<label>{{ answer.text }}</label>
+				</div>
+			</div>
 		</div>
-
 	</div>
-
-
 
 	<!-- JS -->
 	<script src="https://unpkg.com/vue@next/dist/vue.js"></script>
