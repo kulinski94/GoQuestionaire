@@ -51,6 +51,22 @@ func findAnswersForQuestion(QuestionId int) Answers {
 	return answers
 }
 
+func findQuestionId(Text string) int {
+
+	db, err := sql.Open("mysql", "go:go@/go_questionaire?charset=utf8")
+	checkErr(err)
+
+	answerRow := db.QueryRow("SELECT id FROM questions where text = ?", Text)
+	checkErr(err)
+
+	var id int
+	err = answerRow.Scan(&id)
+
+	checkErr(err)
+
+	return id
+}
+
 func RepoInsertQuestion(QuestionToAdd Question) sql.Result {
 	db, err := sql.Open("mysql", "go:go@/go_questionaire?charset=utf8")
 	checkErr(err)
@@ -60,6 +76,26 @@ func RepoInsertQuestion(QuestionToAdd Question) sql.Result {
 	checkErr(err)
 
 	res, err := stmt.Exec(QuestionToAdd.Text)
+	checkErr(err)
+
+	questionID := findQuestionId(QuestionToAdd.Text)
+
+	for _, answer := range QuestionToAdd.Answers {
+		RepoInsertAnswer(answer, questionID)
+	}
+
+	return res
+}
+
+func RepoInsertAnswer(Answer Answer, QuestionId int) sql.Result {
+	db, err := sql.Open("mysql", "go:go@/go_questionaire?charset=utf8")
+	checkErr(err)
+
+	// insert
+	stmt, err := db.Prepare("INSERT answers SET text=?, correct=?, question_id=?")
+	checkErr(err)
+
+	res, err := stmt.Exec(Answer.Text, Answer.Correct, QuestionId)
 	checkErr(err)
 	return res
 }

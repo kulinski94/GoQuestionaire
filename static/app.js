@@ -9,7 +9,8 @@ new Vue({
         this.getQuestions();
     },
     data: {
-        questions: []
+        questions: [],
+        picked: ""
     },
     methods: {
         getQuestions: function () {

@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"fmt"
+
 	"github.com/gorilla/mux"
 )
 
@@ -24,6 +26,7 @@ func getAllQuestions(w http.ResponseWriter, r *http.Request) {
 func addQuestion(w http.ResponseWriter, r *http.Request) {
 	var question Question
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
+
 	if err != nil {
 		panic(err)
 	}
@@ -31,16 +34,16 @@ func addQuestion(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	if err := json.Unmarshal(body, &question); err != nil {
-		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-		w.WriteHeader(422) // unprocessable entity
 		if err := json.NewEncoder(w).Encode(err); err != nil {
 			panic(err)
 		}
 	}
 
+	fmt.Println(question)
+
 	t := RepoInsertQuestion(question)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusCreated)
+	w.Header().Set("Status", "200")
 	if err := json.NewEncoder(w).Encode(t); err != nil {
 		panic(err)
 	}

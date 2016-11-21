@@ -22,50 +22,35 @@
 
 	<!-- main body of our application -->
 	<div class="container" id="editor">
-
 		<form>
-			<!-- text -->
-			<p>
-				<input type="text" v-model="msg"> {{msg}}
-			</p>
-			<!-- checkbox -->
-			<p>
-				<input type="checkbox" v-model="checked"> {{checked ? "yes" : "no"}}
-			</p>
-			<!-- radio buttons -->
-			<p>
-				<input type="radio" name="picked" value="one" v-model="picked">
-				<input type="radio" name="picked" value="two" v-model="picked"> {{picked}}
-			</p>
-			<!-- select -->
-			<p>
-				<select v-model="selected">
-      <option>one</option>
-      <option>two</option>
-    </select> {{selected}}
-			</p>
-			<!-- multiple select -->
-			<p>
-				<select v-model="multiSelect" multiple>
-      <option>one</option>
-      <option>two</option>
-      <option>three</option>
-    </select> {{multiSelect}}
-			</p>
-			<p>
-				<pre>data: {{$data | json 2}}</pre>
-			</p>
+			<div class="form-group">
+				<!-- text -->
+				<label>Question:</label>
+				<input type="text" class="form-control" v-model="question">
+			</div>
+
+			<div class="form-group">
+				<label>Answer1:</label>
+				<input type="text" class="form-control" v-model="answer1">
+			</div>
+			<div class="form-group">
+				<label>Answer2:</label>
+				<input type="text" class="form-control" v-model="answer2">
+			</div>
+			<div class="form-group">
+				<label>Answer3:</label>
+				<input type="text" class="form-control" v-model="answer3">
+			</div>
+			<button type="submit" class="btn btn-primary" v-on:click="save" >Submit</button>
 		</form>
-
-
 	</div>
 
 
 
 	<!-- JS -->
-	<script src="editor.js"></script>
 	<script src="https://unpkg.com/vue@next/dist/vue.js"></script>
 	<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+	<script src="editor.js"></script>
 </body>
 
 </html>
