@@ -19,6 +19,13 @@ new Vue({
             }, (error) => {
                 console.error(error);
             });
+        },
+        deleteQuestion: function(id) {
+            this.$http.delete('api/question/' + id).then((response) => {
+                console.log(response);
+            }, (error) => {
+                console.error(error);
+            });
         }
     }
 });

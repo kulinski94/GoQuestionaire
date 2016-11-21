@@ -25,6 +25,7 @@
 		<div class="col-sm-6 col-sm-offset-3">
 			<div v-for="question in questions">
 				<span> {{question.id}}.{{ question.text }}</span>
+                    <button type="submit" class="glyphicon glyphicon glyphicon-remove" v-on:click="deleteQuestion(question.id)" >Delete</button>
 				<div class=class="form-group" v-for="answer in question.answers">
 					<input v-bind:name="question.id" type="radio" v-bind:value="answer.id">
 					<label>{{ answer.text }}</label>
