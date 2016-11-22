@@ -32,4 +32,10 @@ var routes = Routes{
 		"/api/question/{questionId}",
 		deleteQuestion,
 	},
+	Route{
+		"Save pdf",
+		"GET",
+		"/api/quiz/pdf",
+		savePdf,
+	},
 }

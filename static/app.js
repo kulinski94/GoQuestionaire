@@ -26,6 +26,13 @@ new Vue({
             }, (error) => {
                 console.error(error);
             });
+        },
+        saveToPdf: function () {
+            this.$http.get('api/quiz/pdf').then((response) => {
+                console.log(response);
+            }, (error) => {
+                console.error(error);
+            });
         }
     }
 });

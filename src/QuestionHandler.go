@@ -10,6 +10,8 @@ import (
 	"fmt"
 
 	"github.com/gorilla/mux"
+
+	"github.com/jung-kurt/gofpdf"
 )
 
 func getAllQuestions(w http.ResponseWriter, r *http.Request) {
@@ -63,6 +65,26 @@ func deleteQuestion(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 
 	if err := json.NewEncoder(w).Encode(res); err != nil {
+		panic(err)
+	}
+}
+
+func savePdf(w http.ResponseWriter, r *http.Request) {
+	questions := RepoGetAllQuestions()
+
+	pdf := gofpdf.New("P", "mm", "A4", "")
+	pdf.AddPage()
+	pdf.SetFont("Arial", "B", 16)
+	pdf.Cell(40, 10, "Hello, world")
+	err := pdf.OutputFileAndClose("hello.pdf")
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(questions); err != nil {
 		panic(err)
 	}
 }
